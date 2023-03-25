@@ -13,7 +13,6 @@
 
 ```
 npm install
-
 ```
 
 This will install all the dependencies listed in your package.json file.
@@ -22,7 +21,6 @@ This will install all the dependencies listed in your package.json file.
 
 ```
 npm run dev
-
 ```
 
 This will start the Vite development server and you should be able to see your Vue 3 application running in your browser at http://localhost:3000.
