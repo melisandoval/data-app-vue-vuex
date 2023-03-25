@@ -2,11 +2,14 @@
   <footer>
     <div>
       <p>
-        Favicon from
+        Developed by
+        <a href="https://github.com/melisandoval" target="_blank"
+          >Melisa Sandoval</a
+        >. Favicon from:
         <a
           href="https://www.flaticon.com/free-icons/growth"
           title="growth icons"
-          >Growth icons created by Freepik - Flaticon</a
+          >Freepik - Flaticon</a
         >
       </p>
     </div>
@@ -15,4 +18,8 @@
 
 <script setup></script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+p {
+  font-size: 0.8rem;
+}
+</style>
