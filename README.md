@@ -1,11 +1,13 @@
-# How to run this project
+# Data App - Vue / Vuex
 
-## Prerequisites
+## How to run this project:
+
+### Prerequisites
 
 - Git installed on your machine.
 - Node.js installed on your machine (minimum version 12.x)
 
-## Steps
+### Steps
 
 1. Clone the repository.
 2. Once the repository is cloned, navigate to the root directory of the project.
@@ -23,4 +25,4 @@ This will install all the dependencies listed in your package.json file.
 npm run dev
 ```
 
-This will start the Vite development server and you should be able to see your Vue 3 application running in your browser at http://localhost:3000.
+This will start the Vite development server, and you should be able to see your Vue 3 application running in your browser at http://localhost:3000.
