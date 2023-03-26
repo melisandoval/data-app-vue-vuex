@@ -4,37 +4,61 @@
   </header>
 
   <main>
-    <div>
-      <ul>
-        <li v-for="item in data" :key="item.id">{{ item.name }}</li>
-      </ul>
-      <p v-if="error">{{ error }}</p>
-    </div>
+    <p v-if="error">{{ error }}</p>
+
+    <section class="table-section" v-if="dataChunk">
+      <Table :data="dataChunk" />
+    </section>
+
+    <Pagination />
   </main>
 
   <Footer />
 </template>
 
 <script setup>
-import Footer from "./components/Footer.vue";
-
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch, computed, reactive } from "vue";
 import { useStore } from "vuex";
+import Pagination from "./components/Pagination.vue";
+import Footer from "./components/Footer.vue";
+import Table from "./components/Table.vue";
+
+const store = useStore();
 
 const data = ref([]);
 const error = ref(null);
+const dataChunk = ref(null);
+// const tablePage = ref(store.getters.getCurrentTablePage);
+
+function getChunk(array, chunkNumber) {
+  const chunkSize = 10;
+  const startIndex = (chunkNumber - 1) * chunkSize;
+  const endIndex = startIndex + chunkSize;
+  return array.slice(startIndex, endIndex);
+}
 
 onMounted(async () => {
-  const store = useStore();
   try {
     await store.dispatch("fetchData");
     data.value = store.getters.getData;
     error.value = store.getters.getDataError;
-    console.log(data);
+    dataChunk.value = getChunk(data.value, 1);
   } catch (err) {
     console.log(err.message);
   }
 });
+
+watch(
+  () => store.getters.getCurrentTablePage,
+  (newValue, oldValue) => {
+    console.log(`currentTablePage changed from ${oldValue} to ${newValue}`);
+    dataChunk.value = getChunk(data.value, store.getters.getCurrentTablePage);
+  }
+);
 </script>
 
-<style scoped></style>
+<style scoped>
+.table-section {
+  max-width: max-content;
+}
+</style>

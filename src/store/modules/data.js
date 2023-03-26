@@ -6,6 +6,7 @@ export const store = createStore({
     dataError: null,
     itemDetails: null,
     itemDetailsError: null,
+    currentTablePage: 1,
   },
 
   mutations: {
@@ -25,6 +26,10 @@ export const store = createStore({
     SET_ITEM_DETAILS_ERROR(state, error) {
       state.itemDetails = null;
       state.itemDetailsError = error;
+    },
+
+    SET_CURRENT_TABLE_PAGE(state, currentPage) {
+      state.currentTablePage = currentPage;
     },
   },
 
@@ -58,6 +63,14 @@ export const store = createStore({
         );
       }
     },
+
+    setCurrentTablePage({ commit }, pageNumber) {
+      try {
+        commit("SET_CURRENT_TABLE_PAGE", pageNumber);
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
 
   getters: {
@@ -66,6 +79,9 @@ export const store = createStore({
     },
     getDataError(state) {
       return state.dataError;
+    },
+    getCurrentTablePage(state) {
+      return state.currentTablePage;
     },
   },
 });
