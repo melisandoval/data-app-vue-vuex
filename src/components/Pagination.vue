@@ -12,16 +12,14 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore();
 const currentPage = ref(store.getters.getCurrentTablePage);
-// const totalItems = computed(() => store.state.data?.length);
 
 function handlePageChange(page) {
   store.dispatch("setCurrentTablePage", page);
-  console.log(`Current page: ${store.getters.getCurrentTablePage}`);
 }
 </script>
 
@@ -30,6 +28,6 @@ function handlePageChange(page) {
   width: 100%;
   display: grid;
   place-items: center;
-  padding: 1em;
+  padding: 1.5em 1em;
 }
 </style>

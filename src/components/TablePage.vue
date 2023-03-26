@@ -10,7 +10,6 @@
 </template>
 
 <script setup>
-import { InfoFilled } from "@element-plus/icons-vue";
 import ButtonMoreInfo from "./ButtonMoreInfo.vue";
 
 const props = defineProps(["data"]);

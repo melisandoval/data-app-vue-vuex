@@ -4,61 +4,55 @@
   </header>
 
   <main>
-    <p v-if="error">{{ error }}</p>
-
-    <section class="table-section" v-if="dataChunk">
-      <Table :data="dataChunk" />
-    </section>
-
-    <Pagination />
+    <div class="content-container">
+      <div v-if="errorMsg" class="error-message-container">
+        <h2>{{ errorMsg }}</h2>
+      </div>
+      <TablesSection v-if="data" :dataChunk="dataChunk" />
+    </div>
   </main>
 
   <Footer />
 </template>
 
 <script setup>
-import { ref, onMounted, watch, computed, reactive } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { useStore } from "vuex";
-import Pagination from "./components/Pagination.vue";
+import { getChunk } from "./utils/dataUtils";
 import Footer from "./components/Footer.vue";
-import Table from "./components/Table.vue";
+import TablesSection from "./components/TableSection.vue";
 
 const store = useStore();
 
-const data = ref([]);
-const error = ref(null);
+const data = ref(null);
+const errorMsg = ref(null);
 const dataChunk = ref(null);
-// const tablePage = ref(store.getters.getCurrentTablePage);
-
-function getChunk(array, chunkNumber) {
-  const chunkSize = 10;
-  const startIndex = (chunkNumber - 1) * chunkSize;
-  const endIndex = startIndex + chunkSize;
-  return array.slice(startIndex, endIndex);
-}
 
 onMounted(async () => {
   try {
     await store.dispatch("fetchData");
     data.value = store.getters.getData;
-    error.value = store.getters.getDataError;
     dataChunk.value = getChunk(data.value, 1);
   } catch (err) {
     console.log(err.message);
+    errorMsg.value =
+      "Sorry, we can't display the data now. Please try again later.";
   }
 });
 
 watch(
   () => store.getters.getCurrentTablePage,
-  (newValue, oldValue) => {
-    console.log(`currentTablePage changed from ${oldValue} to ${newValue}`);
-    dataChunk.value = getChunk(data.value, store.getters.getCurrentTablePage);
+  (newStateValue) => {
+    dataChunk.value = getChunk(data.value, newStateValue);
   }
 );
 </script>
 
 <style scoped>
-.table-section {
-  max-width: max-content;
+.content-container {
+  width: 100%;
+  min-height: 85vh;
+  display: grid;
+  place-items: center;
 }
 </style>

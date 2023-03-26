@@ -14,6 +14,7 @@ export const store = createStore({
       state.data = data;
       state.dataError = null;
     },
+
     SET_DATA_ERROR(state, error) {
       state.data = null;
       state.dataError = error;
@@ -40,11 +41,10 @@ export const store = createStore({
         const data = await response.json();
         commit("SET_DATA", data);
       } catch (error) {
+        console.log("Catch block");
         console.error(error);
-        commit(
-          "SET_DATA_ERROR",
-          "Error fetching data. Please try again later."
-        );
+        commit("SET_DATA_ERROR", "Error fetching data. Please try again.");
+        console.log(state.dataError);
       }
     },
 

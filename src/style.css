@@ -81,6 +81,10 @@ button:focus-visible {
   min-height: 100vh;
 }
 
+main {
+  height: max-content;
+}
+
 footer {
   position: absolute;
   left: 0;
