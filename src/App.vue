@@ -22,13 +22,12 @@ import { getChunk } from "./utils/dataUtils";
 import Footer from "./components/Footer.vue";
 import TablesSection from "./components/TableSection.vue";
 import ItemMoreInfoModal from "./components/ItemMoreInfoModal.vue";
+import { ElLoading } from "element-plus";
 
 const store = useStore();
 
 const data = ref(null);
 const dataChunk = ref(null);
-
-const loading = ref(true);
 
 const error = ref(false);
 const errorMsg =
@@ -38,6 +37,7 @@ const errorMsg =
 const itemMoreInfoModalVisible = ref(false);
 
 onMounted(async () => {
+  const loading = ElLoading.service({ fullscreen: true });
   try {
     await store.dispatch("fetchData");
     data.value = store.getters.getData;
@@ -45,7 +45,11 @@ onMounted(async () => {
     if (!data) {
       error.value = true;
     }
-    dataChunk.value = getChunk(data?.value, 1);
+
+    if (data) {
+      loading.close();
+      dataChunk.value = getChunk(data.value, 1);
+    }
   } catch (err) {
     console.log(err.message);
   }
