@@ -43,13 +43,19 @@ export const store = createStore({
     async fetchData({ commit }) {
       try {
         const response = await fetch("http://localhost:3000/data");
+
+        if (!response || !response.ok) {
+          throw new Error();
+        }
+
         const data = await response.json();
         commit("SET_DATA", data);
       } catch (error) {
-        console.log("Catch block");
-        console.error(error);
-        commit("SET_DATA_ERROR", "Error fetching data. Please try again.");
-        console.log(state.dataError);
+        console.log(error);
+        commit(
+          "SET_DATA_ERROR",
+          "Sorry, we can't display the data now. Please try again later."
+        );
       }
     },
 
@@ -58,13 +64,18 @@ export const store = createStore({
         const response = await fetch(
           `http://localhost:3002/extendedData/${itemId}`
         );
+
+        if (!response || !response.ok) {
+          throw new Error();
+        }
+
         const itemDetails = await response.json();
         commit("SET_ITEM_DETAILS", itemDetails);
       } catch (error) {
         console.error(error);
         commit(
           "SET_ITEM_DETAILS_ERROR",
-          "Error fetching data. Please try again later."
+          "Sorry, we can't display the data now. Please try again later."
         );
       }
     },
@@ -96,6 +107,9 @@ export const store = createStore({
 
     getItemDetails(state) {
       return state.itemDetails;
+    },
+    getItemDetailsError(state) {
+      return state.itemDetailsError;
     },
 
     getCurrentTablePage(state) {

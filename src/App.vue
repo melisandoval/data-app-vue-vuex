@@ -6,7 +6,7 @@
   <main>
     <ItemMoreInfoModal v-model="itemMoreInfoModalVisible" />
     <div class="content-container">
-      <div v-if="errorMsg" class="error-message-container">
+      <div v-if="!data" class="error-message-container">
         <h2>{{ errorMsg }}</h2>
       </div>
       <TablesSection v-if="data" :dataChunk="dataChunk" />
@@ -26,8 +26,11 @@ import ItemMoreInfoModal from "./components/ItemMoreInfoModal.vue";
 const store = useStore();
 
 const data = ref(null);
-const errorMsg = ref(null);
 const dataChunk = ref(null);
+
+const errorMsg =
+  store.getters.getDataError ??
+  "Sorry, we can't display the data now. Please try again later.";
 
 const itemMoreInfoModalVisible = ref(false);
 
@@ -38,8 +41,6 @@ onMounted(async () => {
     dataChunk.value = getChunk(data.value, 1);
   } catch (err) {
     console.log(err.message);
-    errorMsg.value =
-      "Sorry, we can't display the data now. Please try again later.";
   }
 });
 

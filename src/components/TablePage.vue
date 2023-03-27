@@ -9,7 +9,7 @@
           <el-button
             size="small"
             type="primary"
-            @click="handleDisplayMoreInfo(scope.$index, scope.row)"
+            @click="handleDisplayMoreInfo(scope.row)"
             class="more-info-button"
             >More info</el-button
           ></template
@@ -21,11 +21,12 @@
 
 <script setup>
 import { useStore } from "vuex";
+
 const props = defineProps(["dataChunk"]);
 
 const store = useStore();
 
-const handleDisplayMoreInfo = (index, row) => {
+const handleDisplayMoreInfo = (row) => {
   store.dispatch("setSelectedItemId", row.id);
 };
 </script>

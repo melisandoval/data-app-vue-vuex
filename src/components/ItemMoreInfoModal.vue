@@ -6,12 +6,15 @@
         data.date
       }}</el-descriptions-item>
     </el-descriptions>
-
     <el-descriptions direction="vertical">
       <el-descriptions-item label="Description">
         {{ data.description }}
       </el-descriptions-item>
     </el-descriptions>
+  </el-dialog>
+
+  <el-dialog v-else>
+    <p class="error-message">{{ errorMsg }}</p>
   </el-dialog>
 </template>
 
@@ -22,7 +25,9 @@ import { ref, watch } from "vue";
 const store = useStore();
 
 const data = ref(null);
-const errorMsg = ref(null);
+const errorMsg =
+  store.getters.getItemDetailsError ||
+  "Sorry, we can't display the data now. Please try again later.";
 
 watch(
   () => store.getters.getCurrentSelectedItemId,
@@ -35,8 +40,6 @@ watch(
       data.value = store.getters.getItemDetails;
     } catch (err) {
       console.log(err.message);
-      errorMsg.value =
-        "Sorry, we can't display the data now. Please try again later.";
     }
   }
 );
@@ -45,5 +48,9 @@ watch(
 <style scoped>
 .el-descriptions {
   padding: 0.5em;
+}
+
+.error-message {
+  padding-bottom: 1em;
 }
 </style>
