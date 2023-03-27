@@ -27,14 +27,12 @@ const errorMsg = ref(null);
 watch(
   () => store.getters.getCurrentSelectedItemId,
   async () => {
-    console.log(store.getters.getCurrentSelectedItemId);
     try {
       await store.dispatch(
         "fetchItemDetails",
         store.getters.getCurrentSelectedItemId
       );
       data.value = store.getters.getItemDetails;
-      console.log(data.value);
     } catch (err) {
       console.log(err.message);
       errorMsg.value =
@@ -46,6 +44,6 @@ watch(
 
 <style scoped>
 .el-descriptions {
-  padding: 1em;
+  padding: 0.5em;
 }
 </style>

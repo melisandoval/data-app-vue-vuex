@@ -27,7 +27,6 @@ const store = useStore();
 
 const handleDisplayMoreInfo = (index, row) => {
   store.dispatch("setSelectedItemId", row.id);
-  console.log(store.getters.getCurrentSelectedItemId);
 };
 </script>
 

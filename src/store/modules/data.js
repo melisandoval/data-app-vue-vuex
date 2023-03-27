@@ -55,7 +55,6 @@ export const store = createStore({
 
     async fetchItemDetails({ commit }, itemId) {
       try {
-        console.log("llama a fetchItemDetails");
         const response = await fetch(
           `http://localhost:3002/extendedData/${itemId}`
         );
