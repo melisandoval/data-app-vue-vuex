@@ -7,6 +7,7 @@ export const store = createStore({
     itemDetails: null,
     itemDetailsError: null,
     currentTablePage: 1,
+    selectedItemId: null,
   },
 
   mutations: {
@@ -32,6 +33,10 @@ export const store = createStore({
     SET_CURRENT_TABLE_PAGE(state, currentPage) {
       state.currentTablePage = currentPage;
     },
+
+    SET_SELECTED_ITEM_ID(state, id) {
+      state.selectedItemId = id;
+    },
   },
 
   actions: {
@@ -50,10 +55,11 @@ export const store = createStore({
 
     async fetchItemDetails({ commit }, itemId) {
       try {
+        console.log("llama a fetchItemDetails");
         const response = await fetch(
           `http://localhost:3002/extendedData/${itemId}`
         );
-        const itemDetails = response.json();
+        const itemDetails = await response.json();
         commit("SET_ITEM_DETAILS", itemDetails);
       } catch (error) {
         console.error(error);
@@ -71,6 +77,14 @@ export const store = createStore({
         console.log(error);
       }
     },
+
+    setSelectedItemId({ commit }, id) {
+      try {
+        commit("SET_SELECTED_ITEM_ID", id);
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
 
   getters: {
@@ -80,8 +94,16 @@ export const store = createStore({
     getDataError(state) {
       return state.dataError;
     },
+
+    getItemDetails(state) {
+      return state.itemDetails;
+    },
+
     getCurrentTablePage(state) {
       return state.currentTablePage;
+    },
+    getCurrentSelectedItemId(state) {
+      return state.selectedItemId;
     },
   },
 });

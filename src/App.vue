@@ -4,6 +4,7 @@
   </header>
 
   <main>
+    <ItemMoreInfoModal v-model="itemMoreInfoModalVisible" />
     <div class="content-container">
       <div v-if="errorMsg" class="error-message-container">
         <h2>{{ errorMsg }}</h2>
@@ -11,7 +12,6 @@
       <TablesSection v-if="data" :dataChunk="dataChunk" />
     </div>
   </main>
-
   <Footer />
 </template>
 
@@ -21,12 +21,15 @@ import { useStore } from "vuex";
 import { getChunk } from "./utils/dataUtils";
 import Footer from "./components/Footer.vue";
 import TablesSection from "./components/TableSection.vue";
+import ItemMoreInfoModal from "./components/ItemMoreInfoModal.vue";
 
 const store = useStore();
 
 const data = ref(null);
 const errorMsg = ref(null);
 const dataChunk = ref(null);
+
+const itemMoreInfoModalVisible = ref(false);
 
 onMounted(async () => {
   try {
@@ -44,6 +47,13 @@ watch(
   () => store.getters.getCurrentTablePage,
   (newStateValue) => {
     dataChunk.value = getChunk(data.value, newStateValue);
+  }
+);
+
+watch(
+  () => store.getters.getCurrentSelectedItemId,
+  () => {
+    itemMoreInfoModalVisible.value = true;
   }
 );
 </script>

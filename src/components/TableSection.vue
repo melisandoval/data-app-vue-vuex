@@ -1,6 +1,6 @@
 <template>
   <section class="table-section" v-if="dataChunk">
-    <TablePage :data="dataChunk" />
+    <TablePage :dataChunk="dataChunk" />
     <Pagination />
   </section>
 </template>
