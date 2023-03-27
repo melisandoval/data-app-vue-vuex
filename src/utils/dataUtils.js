@@ -4,3 +4,7 @@ export function getChunk(array, chunkNumber) {
   const endIndex = startIndex + chunkSize;
   return array.slice(startIndex, endIndex);
 }
+
+export function transformDate(dateString) {
+  return new Date(dateString.split(" ").join("")).toLocaleString();
+}

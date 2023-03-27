@@ -3,7 +3,7 @@
     <el-descriptions :column="1">
       <el-descriptions-item label="Id:">{{ data.id }}</el-descriptions-item>
       <el-descriptions-item label="Created at:">{{
-        data.date
+        transformDate(data.date)
       }}</el-descriptions-item>
     </el-descriptions>
     <el-descriptions direction="vertical">
@@ -21,6 +21,7 @@
 <script setup>
 import { useStore } from "vuex";
 import { ref, watch } from "vue";
+import { transformDate } from "../utils/dataUtils";
 
 const store = useStore();
 
