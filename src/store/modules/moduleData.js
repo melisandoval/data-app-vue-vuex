@@ -1,6 +1,4 @@
-import { createStore } from "vuex";
-
-export const store = createStore({
+export const moduleData = {
   state: {
     data: null,
     dataError: null,
@@ -119,4 +117,4 @@ export const store = createStore({
       return state.selectedItemId;
     },
   },
-});
+};

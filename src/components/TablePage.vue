@@ -1,6 +1,12 @@
 <template>
   <div class="table-container">
-    <el-table :data="dataChunk" stripe style="width: 100%" :responsive="true">
+    <el-table
+      :v-loading="loading"
+      :data="dataChunk"
+      stripe
+      style="width: 100%"
+      :responsive="true"
+    >
       <el-table-column prop="id" label="id" width="100" />
       <el-table-column prop="name" label="Name" width="130" />
       <el-table-column prop="value" label="Value" width="100" />
@@ -20,11 +26,14 @@
 </template>
 
 <script setup>
+import { ref } from "vue";
 import { useStore } from "vuex";
 
 const props = defineProps(["dataChunk"]);
 
 const store = useStore();
+
+const loading = ref(true);
 
 const handleDisplayMoreInfo = (row) => {
   store.dispatch("setSelectedItemId", row.id);

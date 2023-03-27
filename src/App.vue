@@ -6,7 +6,7 @@
   <main>
     <ItemMoreInfoModal v-model="itemMoreInfoModalVisible" />
     <div class="content-container">
-      <div v-if="!data" class="error-message-container">
+      <div v-if="error" class="error-message-container">
         <h2>{{ errorMsg }}</h2>
       </div>
       <TablesSection v-if="data" :dataChunk="dataChunk" />
@@ -28,6 +28,9 @@ const store = useStore();
 const data = ref(null);
 const dataChunk = ref(null);
 
+const loading = ref(true);
+
+const error = ref(false);
 const errorMsg =
   store.getters.getDataError ??
   "Sorry, we can't display the data now. Please try again later.";
@@ -38,7 +41,11 @@ onMounted(async () => {
   try {
     await store.dispatch("fetchData");
     data.value = store.getters.getData;
-    dataChunk.value = getChunk(data.value, 1);
+
+    if (!data) {
+      error.value = true;
+    }
+    dataChunk.value = getChunk(data?.value, 1);
   } catch (err) {
     console.log(err.message);
   }
