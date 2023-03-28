@@ -50,8 +50,9 @@ h1 {
 }
 
 main {
-  max-width: 100%;
-  height: max-content;
+  width: 100%;
+  min-height: 80vh;
+  margin-bottom: 2em;
 }
 
 footer {

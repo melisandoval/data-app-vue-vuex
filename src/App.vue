@@ -78,13 +78,19 @@ watch(
 <style scoped>
 .app-content-container {
   max-width: 100%;
-  min-height: 85vh;
+  min-height: 95vh;
   padding: 1em;
 }
 
 .main-content-container {
   max-width: 100%;
   padding: 4em 0 2em;
+}
+
+@media screen and (min-width: 768px) {
+  .main-content-container {
+    padding: 0 10em;
+  }
 }
 
 @media screen and (min-width: 1440px) {

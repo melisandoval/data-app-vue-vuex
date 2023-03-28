@@ -92,7 +92,7 @@ const valueBarOptions = reactive({
 }
 
 .bar-graph {
-  max-height: 35vh;
+  max-height: 350px;
   padding: 1em;
 }
 </style>
