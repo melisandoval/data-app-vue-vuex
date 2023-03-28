@@ -1,16 +1,13 @@
 <template>
   <section class="graph-section">
-    <h2>Total items: {{ totalItems }}</h2>
-    <p>Total value: {{ totalValue }}</p>
-    <p>Average value: {{ averageValue }}</p>
-    <Bar :data="data" :options="options" class="bar-graph" />
+    <Bar :data="valueBarData" :options="valueBarOptions" class="bar-graph" />
+    <Bar :data="itemsBarData" :options="itemsBarOptions" class="bar-graph" />
   </section>
 </template>
 
 <script setup>
 import { computed, reactive } from "vue";
 import { useStore } from "vuex";
-
 import {
   Chart as ChartJS,
   Title,
@@ -32,53 +29,57 @@ ChartJS.register(
 );
 
 const store = useStore();
-// const tableData = ref(null);
 
 const totalItems = computed(() => store.getters.getData?.length);
+const itemsEqualOrGreaterThan50 = computed(() => {
+  const tableData = store.getters.getData;
+  return tableData.filter((item) => item.value >= 50).length;
+});
+const itemsGraphData = [totalItems.value, itemsEqualOrGreaterThan50.value];
 
 const totalValue = computed(() => {
   const tableData = store.getters.getData;
-  return tableData?.reduce((total, item) => total + item.value, 0);
+  return tableData.reduce((total, obj) => total + obj.value, 0);
 });
+const averageValue = computed(() => totalValue.value / totalItems.value);
+const valueGraphData = [totalValue.value, averageValue.value];
 
-const averageValue = computed(() => {
-  if (totalValue && totalItems) {
-    return totalValue.value / totalItems.value;
-  }
-});
-
-const data = {
-  labels: [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ],
+const itemsBarData = {
+  labels: ["Total", "With>=50 value"],
   datasets: [
     {
-      label: "Data One",
-      backgroundColor: "#f87979",
-      data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11],
-    },
-    {
-      label: "Data Two",
-      backgroundColor: "#409EFF",
-      data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11],
+      label: "Items",
+      backgroundColor: "#909399",
+      data: itemsGraphData,
     },
   ],
 };
 
-const options = reactive({
+const itemsBarOptions = reactive({
   responsive: true,
   maintainAspectRatio: false,
+  scale: {
+    max: 60,
+  },
+});
+
+const valueBarData = {
+  labels: ["Total", "Average"],
+  datasets: [
+    {
+      label: "Value",
+      backgroundColor: "#409eff",
+      data: valueGraphData,
+    },
+  ],
+};
+
+const valueBarOptions = reactive({
+  responsive: true,
+  maintainAspectRatio: false,
+  scale: {
+    max: 6000,
+  },
 });
 </script>
 
@@ -91,7 +92,7 @@ const options = reactive({
 }
 
 .bar-graph {
-  max-height: 600px;
+  max-height: 35vh;
   padding: 1em;
 }
 </style>

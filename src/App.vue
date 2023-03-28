@@ -1,5 +1,5 @@
 <template>
-  <div class="app-content-container">
+  <div class="app-content-container" v-if="data">
     <header>
       <h1>Data App</h1>
     </header>
@@ -7,14 +7,14 @@
     <main>
       <ItemMoreInfoModal v-model="itemMoreInfoModalVisible" />
       <div class="main-content-container">
-        <div v-if="error" class="error-message-container">
-          <h2>{{ errorMsg }}</h2>
-        </div>
-        <TablesSection v-if="data" :dataChunk="dataChunk" />
-
+        <TablesSection :dataChunk="dataChunk" />
         <GraphSection />
       </div>
     </main>
+  </div>
+
+  <div v-if="error" class="error-message-container">
+    <h2>{{ errorMsg }}</h2>
   </div>
   <Footer />
 </template>
@@ -83,15 +83,21 @@ watch(
 }
 
 .main-content-container {
-  max-width: 95%;
+  max-width: 100%;
+  padding: 4em 0 2em;
 }
 
-@media screen and (min-width: 1024px) {
-  .main-content-container {
+@media screen and (min-width: 1440px) {
+  main {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    place-items: center;
+  }
+  .main-content-container {
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    align-items: center;
     gap: 4em;
-    padding: 0 4em;
   }
 }
 </style>
