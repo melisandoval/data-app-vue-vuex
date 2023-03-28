@@ -10,8 +10,8 @@
       <el-table-column prop="id" label="id" />
       <el-table-column prop="name" label="Name" />
       <el-table-column prop="value" label="Value" />
-      <el-table-column width="120px">
-        <template class="button-container">
+      <el-table-column width="100px">
+        <template #default="scope">
           <el-button
             size="small"
             type="primary"
