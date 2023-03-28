@@ -1,17 +1,21 @@
 <template>
-  <header>
-    <h1>Data App</h1>
-  </header>
+  <div class="app-content-container">
+    <header>
+      <h1>Data App</h1>
+    </header>
 
-  <main>
-    <ItemMoreInfoModal v-model="itemMoreInfoModalVisible" />
-    <div class="content-container">
-      <div v-if="error" class="error-message-container">
-        <h2>{{ errorMsg }}</h2>
+    <main>
+      <ItemMoreInfoModal v-model="itemMoreInfoModalVisible" />
+      <div class="main-content-container">
+        <div v-if="error" class="error-message-container">
+          <h2>{{ errorMsg }}</h2>
+        </div>
+        <TablesSection v-if="data" :dataChunk="dataChunk" />
+
+        <GraphSection />
       </div>
-      <TablesSection v-if="data" :dataChunk="dataChunk" />
-    </div>
-  </main>
+    </main>
+  </div>
   <Footer />
 </template>
 
@@ -23,6 +27,7 @@ import Footer from "./components/Footer.vue";
 import TablesSection from "./components/TableSection.vue";
 import ItemMoreInfoModal from "./components/ItemMoreInfoModal.vue";
 import { ElLoading } from "element-plus";
+import GraphSection from "./components/GraphSection.vue";
 
 const store = useStore();
 
@@ -71,10 +76,22 @@ watch(
 </script>
 
 <style scoped>
-.content-container {
-  width: 100%;
+.app-content-container {
+  max-width: 100%;
   min-height: 85vh;
-  display: grid;
-  place-items: center;
+  padding: 1em;
+}
+
+.main-content-container {
+  max-width: 95%;
+}
+
+@media screen and (min-width: 1024px) {
+  .main-content-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4em;
+    padding: 0 4em;
+  }
 }
 </style>

@@ -8,6 +8,7 @@
         >. Favicon from:
         <a
           href="https://www.flaticon.com/free-icons/growth"
+          target="_blank"
           title="growth icons"
           >Freepik - Flaticon</a
         >

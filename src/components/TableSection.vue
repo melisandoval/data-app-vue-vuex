@@ -15,6 +15,6 @@ const props = defineProps(["dataChunk"]);
 <style scoped>
 .table-section {
   padding: 4em 0 2em;
-  max-width: max-content;
+  max-width: 100%;
 }
 </style>

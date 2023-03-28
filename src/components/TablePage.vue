@@ -3,15 +3,15 @@
     <el-table
       :v-loading="loading"
       :data="dataChunk"
+      border
       stripe
-      style="width: 100%"
       :responsive="true"
     >
-      <el-table-column prop="id" label="id" width="100" />
-      <el-table-column prop="name" label="Name" width="130" />
-      <el-table-column prop="value" label="Value" width="100" />
-      <el-table-column width="130">
-        <template #default="scope">
+      <el-table-column prop="id" label="id" />
+      <el-table-column prop="name" label="Name" />
+      <el-table-column prop="value" label="Value" />
+      <el-table-column width="120px">
+        <template class="button-container">
           <el-button
             size="small"
             type="primary"
@@ -42,10 +42,15 @@ const handleDisplayMoreInfo = (row) => {
 
 <style scoped>
 .table-container {
-  max-width: fit-content;
+  width: 100%;
 }
 
 .more-info-button {
   margin: 0.6em 0;
+}
+
+.button-container {
+  display: grid;
+  place-items: center;
 }
 </style>
