@@ -63,7 +63,7 @@ export const moduleData = {
 
     async fetchItemDetails({ commit }, itemId) {
       try {
-        // with JSON Server:
+        // with JSON Server or API that handles the filtering (for better perfomance):
         // const response = await fetch(
         //   `http://localhost:3002/extendedData/${itemId}`
         // );
@@ -76,7 +76,7 @@ export const moduleData = {
           throw new Error();
         }
 
-        // with JSON Server:
+        // with JSON Server or API with filter:
         // const itemDetails = await response.json();
 
         const extendedData = await response.json();
