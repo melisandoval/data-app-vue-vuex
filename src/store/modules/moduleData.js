@@ -80,7 +80,8 @@ export const moduleData = {
         // const itemDetails = await response.json();
 
         const extendedData = await response.json();
-        const itemDetails = extendedData.filter(
+
+        const itemDetails = extendedData?.filter(
           (item) => item.id === itemId
         )[0];
 
