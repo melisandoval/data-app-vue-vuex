@@ -30,14 +30,16 @@ import { ref } from "vue";
 import { useStore } from "vuex";
 
 const props = defineProps(["dataChunk"]);
+const emit = defineEmits(["onMoreInfoButtonClicked"]);
 
 const store = useStore();
 
 const loading = ref(true);
 
-const handleDisplayMoreInfo = (row) => {
+function handleDisplayMoreInfo(row) {
+  emit("onMoreInfoButtonClicked");
   store.dispatch("setSelectedItemId", row.id);
-};
+}
 </script>
 
 <style scoped>

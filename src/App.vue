@@ -7,7 +7,10 @@
     <main>
       <ItemMoreInfoModal v-model="itemMoreInfoModalVisible" />
       <div class="main-content-container">
-        <TablesSection :dataChunk="dataChunk" />
+        <TablesSection
+          :dataChunk="dataChunk"
+          @onMoreInfoButtonClicked="handleDisplayMoreInfo"
+        />
         <GraphSection />
       </div>
     </main>
@@ -41,6 +44,10 @@ const errorMsg =
 
 const itemMoreInfoModalVisible = ref(false);
 
+const handleDisplayMoreInfo = () => {
+  itemMoreInfoModalVisible.value = true;
+};
+
 onMounted(async () => {
   const loading = ElLoading.service({ fullscreen: true });
   try {
@@ -64,13 +71,6 @@ watch(
   () => store.getters.getCurrentTablePage,
   (newStateValue) => {
     dataChunk.value = getChunk(data.value, newStateValue);
-  }
-);
-
-watch(
-  () => store.getters.getCurrentSelectedItemId,
-  () => {
-    itemMoreInfoModalVisible.value = true;
   }
 );
 </script>

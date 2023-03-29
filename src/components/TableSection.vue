@@ -1,6 +1,9 @@
 <template>
   <section class="table-section" v-if="dataChunk">
-    <TablePage :dataChunk="dataChunk" />
+    <TablePage
+      :dataChunk="dataChunk"
+      @onMoreInfoButtonClicked="handleEmitDisplayMoreInfo"
+    />
     <Pagination />
   </section>
 </template>
@@ -10,6 +13,12 @@ import TablePage from "./TablePage.vue";
 import Pagination from "./Pagination.vue";
 
 const props = defineProps(["dataChunk"]);
+const emit = defineEmits(["onMoreInfoButtonClicked"]);
+
+function handleEmitDisplayMoreInfo() {
+  emit("onMoreInfoButtonClicked");
+  console.log("function called");
+}
 </script>
 
 <style scoped>

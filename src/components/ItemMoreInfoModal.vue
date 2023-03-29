@@ -30,7 +30,7 @@ import { transformDate } from "../utils/dataUtils";
 const store = useStore();
 
 const data = ref(null);
-const loading = ref(true);
+// const loading = ref(true);
 const error = ref(false);
 
 const errorMsg =
