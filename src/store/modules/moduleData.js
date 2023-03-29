@@ -40,7 +40,8 @@ export const moduleData = {
   actions: {
     async fetchData({ commit }) {
       try {
-        const response = await fetch("http://localhost:3000/data");
+        const apiUrl = process.env.API_URL || "http://localhost:3000/data";
+        const response = await fetch(apiUrl);
 
         if (!response || !response.ok) {
           throw new Error();
