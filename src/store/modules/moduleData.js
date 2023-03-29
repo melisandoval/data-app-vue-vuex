@@ -37,11 +37,14 @@ export const moduleData = {
     },
   },
 
+  // Fake APIs made with https://app.mocki.io/
+
   actions: {
     async fetchData({ commit }) {
       try {
-        const apiUrl = process.env.API_URL || "http://localhost:3000/data";
-        const response = await fetch(apiUrl);
+        const response = await fetch(
+          "https://api.mocki.io/v2/bea148d4/api/data"
+        );
 
         if (!response || !response.ok) {
           throw new Error();
@@ -60,15 +63,27 @@ export const moduleData = {
 
     async fetchItemDetails({ commit }, itemId) {
       try {
+        // with JSON Server:
+        // const response = await fetch(
+        //   `http://localhost:3002/extendedData/${itemId}`
+        // );
+
         const response = await fetch(
-          `http://localhost:3002/extendedData/${itemId}`
+          `https://api.mocki.io/v2/bea148d4/api/data_extended`
         );
 
         if (!response || !response.ok) {
           throw new Error();
         }
 
-        const itemDetails = await response.json();
+        // with JSON Server:
+        // const itemDetails = await response.json();
+
+        const extendedData = await response.json();
+        const itemDetails = extendedData.filter(
+          (item) => item.id === itemId
+        )[0];
+
         commit("SET_ITEM_DETAILS", itemDetails);
       } catch (error) {
         console.error(error);
