@@ -6,6 +6,8 @@ SPA created with:
 - [Element Plus](https://element-plus.org/en-US/)
 - [Chart.js](https://www.chartjs.org/)
 
+#### Live demo: https://data-app-melisandoval.vercel.app/
+
 ## How to run this project:
 
 ### Prerequisites
