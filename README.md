@@ -1,5 +1,11 @@
 # Data App - Vue / Vuex
 
+SPA created with:
+
+- [Vue.js (Vue 3 Composition API)](https://vuejs.org/guide/extras/composition-api-faq.html#what-is-composition-api) + [Vuex](https://vuex.vuejs.org/)
+- [Element Plus](https://element-plus.org/en-US/)
+- [Chart.js](https://www.chartjs.org/)
+
 ## How to run this project:
 
 ### Prerequisites

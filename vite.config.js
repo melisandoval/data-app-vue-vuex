@@ -6,5 +6,3 @@ import Vuex from "vuex";
 export default defineConfig({
   plugins: [vue()],
 });
-
-//
