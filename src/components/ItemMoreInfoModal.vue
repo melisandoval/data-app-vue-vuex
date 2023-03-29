@@ -13,6 +13,10 @@
     </el-descriptions>
   </el-dialog>
 
+  <el-dialog v-else-if="!data">
+    <p>Loading...</p>
+  </el-dialog>
+
   <el-dialog v-else>
     <p class="error-message">{{ errorMsg }}</p>
   </el-dialog>
@@ -26,6 +30,9 @@ import { transformDate } from "../utils/dataUtils";
 const store = useStore();
 
 const data = ref(null);
+const loading = ref(true);
+const error = ref(false);
+
 const errorMsg =
   store.getters.getItemDetailsError ||
   "Sorry, we can't display the data now. Please try again later.";
@@ -39,6 +46,10 @@ watch(
         store.getters.getCurrentSelectedItemId
       );
       data.value = store.getters.getItemDetails;
+
+      if (!data.value) {
+        error.value = true;
+      }
     } catch (err) {
       console.log(err.message);
     }
