@@ -37,20 +37,18 @@ export const moduleData = {
     },
   },
 
-  // Fake APIs made with https://app.mocki.io/
-
   actions: {
     async fetchData({ commit }) {
       try {
-        const response = await fetch(
-          "https://api.mocki.io/v2/bea148d4/api/data"
-        );
+        const response = await fetch("https://upcdn.io/FW25bBt/raw/data.json");
 
         if (!response || !response.ok) {
           throw new Error();
         }
 
-        const data = await response.json();
+        const json = await response.json();
+        const data = json.data;
+
         commit("SET_DATA", data);
       } catch (error) {
         console.log(error);
@@ -69,7 +67,7 @@ export const moduleData = {
         // );
 
         const response = await fetch(
-          `https://api.mocki.io/v2/bea148d4/api/data_extended`
+          "https://upcdn.io/FW25bBt/raw/data_extended.json"
         );
 
         if (!response || !response.ok) {
@@ -79,7 +77,8 @@ export const moduleData = {
         // with JSON Server or API with filter:
         // const itemDetails = await response.json();
 
-        const extendedData = await response.json();
+        const json = await response.json();
+        const extendedData = json.extendedData;
 
         const itemDetails = extendedData?.filter(
           (item) => item.id === itemId

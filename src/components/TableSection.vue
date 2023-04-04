@@ -17,7 +17,6 @@ const emit = defineEmits(["onMoreInfoButtonClicked"]);
 
 function handleEmitDisplayMoreInfo() {
   emit("onMoreInfoButtonClicked");
-  console.log("function called");
 }
 </script>
 

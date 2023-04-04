@@ -33,7 +33,7 @@ const store = useStore();
 const totalItems = computed(() => store.getters.getData?.length);
 const itemsEqualOrGreaterThan50 = computed(() => {
   const tableData = store.getters.getData;
-  return tableData.filter((item) => item.value >= 50).length;
+  return tableData?.filter((item) => item.value >= 50).length;
 });
 const itemsGraphData = [totalItems.value, itemsEqualOrGreaterThan50.value];
 
